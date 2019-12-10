@@ -14,25 +14,18 @@ namespace VitecAPI.Controllers
     [ApiController]
     public class ProductsController : ControllerBase
     {
-        private readonly ProductContext _context;
+        private readonly VitecAPIContext _context;
 
-        public ProductsController(ProductContext context)
+        public ProductsController(VitecAPIContext context)
         {
             _context = context;
-            if (_context.Product.Count() == 0)
-            {
-                // Create a new TodoItem if collection is empty,
-                // which means you can't delete all TodoItems.
-                _context.Product.Add(new Product { Navn = "TEST-1", Pris = 666, Type = "Test", Beskrivelse = "Dette er en beskrivelse"});
-                _context.SaveChanges();
-            }
         }
 
         // GET: api/Products
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Product>>> GetProduct()
+        public IEnumerable<Product> GetProduct()
         {
-            return await _context.Product.ToListAsync();
+            return _context.Product;
         }
 
         // GET: api/Products/5

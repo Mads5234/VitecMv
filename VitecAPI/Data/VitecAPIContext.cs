@@ -3,16 +3,17 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
+using VitecAPI;
 
 namespace VitecAPI.Models
 {
-    public class ProductContext : DbContext
+    public class VitecAPIContext : DbContext
     {
-        public ProductContext(DbContextOptions<ProductContext> options)
+        public VitecAPIContext (DbContextOptions<VitecAPIContext> options)
             : base(options)
         {
-
         }
-        public DbSet<Product> Product { get; set; }
+
+        public DbSet<VitecAPI.Product> Product { get; set; }
     }
 }
