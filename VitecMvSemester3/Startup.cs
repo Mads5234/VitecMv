@@ -13,6 +13,7 @@ using Microsoft.EntityFrameworkCore;
 using VitecMvSemester3.Data;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using VitecMvSemester3.Models;
 
 namespace VitecMvSemester3
 {
@@ -44,6 +45,9 @@ namespace VitecMvSemester3
                 .AddEntityFrameworkStores<ApplicationDbContext>();
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
+
+            services.AddDbContext<VitecMvSemester3Context>(options =>
+                    options.UseSqlServer(Configuration.GetConnectionString("VitecMvSemester3Context")));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
