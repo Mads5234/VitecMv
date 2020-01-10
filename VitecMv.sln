@@ -5,7 +5,7 @@ VisualStudioVersion = 15.0.28307.902
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "VitecMvSemester3", "VitecMvSemester3\VitecMvSemester3.csproj", "{0572ABE4-ABA7-4FF8-B4D4-FC417B7C7ACA}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VitecAPI", "VitecAPI\VitecAPI.csproj", "{DFCE989B-A18C-4064-B14E-3770F8DBAFD2}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "VitecAPI", "VitecAPI\VitecAPI.csproj", "{DFCE989B-A18C-4064-B14E-3770F8DBAFD2}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
