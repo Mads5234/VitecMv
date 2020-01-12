@@ -49,7 +49,7 @@ namespace VitecAPI.Controllers
 
         // PUT: api/Products/5
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutProduct([FromRoute] long id, [FromBody] Product product)
+        public async Task<IActionResult> PutProduct([FromRoute] int id, [FromBody] Product product)
         {
             if (!ModelState.IsValid)
             {

@@ -86,17 +86,28 @@ namespace VitecMvSemester3.Controllers
         // GET: Produkts/Edit/5
         public async Task<IActionResult> Edit(long? id)
         {
+            Produkt prod;
             if (id == null)
             {
                 return NotFound();
             }
-
-            var produkt = await _context.Produkt.FindAsync(id);
-            if (produkt == null)
+            using (HttpClient client = new HttpClient())
             {
-                return NotFound();
+                try
+                {
+                    var response = await client.GetAsync("https://localhost:44334/api/Products/" + id);
+                    response.EnsureSuccessStatusCode();
+
+                    string stringResult = await response.Content.ReadAsStringAsync();
+                    prod = JsonConvert.DeserializeObject<Produkt>(stringResult);
+                }
+                catch (HttpRequestException requestException)
+                {
+                    return BadRequest($"{requestException}");
+                }
             }
-            return View(produkt);
+            return View(prod);
+
         }
 
         // POST: Produkts/Edit/5
@@ -113,25 +124,49 @@ namespace VitecMvSemester3.Controllers
 
             if (ModelState.IsValid)
             {
-                try
-                {
-                    _context.Update(produkt);
-                    await _context.SaveChangesAsync();
-                }
-                catch (DbUpdateConcurrencyException)
-                {
-                    if (!ProduktExists(produkt.Id))
+                
+                    using (HttpClient client = new HttpClient())
                     {
-                        return NotFound();
+                        try
+                        {
+                            var json = JsonConvert.SerializeObject(produkt, Formatting.Indented);
+                            var stringContent = new StringContent(json);
+                            await client.PutAsync("https://localhost:44334/api/Products/" + id, stringContent);
+                            //response.EnsureSuccessStatusCode();
+                        }
+                        catch (HttpRequestException requestException)
+                        {
+                            return BadRequest($"{requestException}");
+                        }
                     }
-                    else
+               /* New n;
+                if (id == null)
+                {
+                    return NotFound();
+                }
+
+                using (HttpClient client = new HttpClient())
+                {
+                    try
                     {
-                        throw;
+                        var response = await client.GetAsync("https://localhost:44365/api/values/" + id);
+                        response.EnsureSuccessStatusCode();
+
+                        string stringResult = await response.Content.ReadAsStringAsync();
+                        n = JsonConvert.DeserializeObject<New>(stringResult);
+                    }
+                    catch (HttpRequestException requestException)
+                    {
+                        return BadRequest($"{requestException}");
                     }
                 }
-                return RedirectToAction(nameof(Index));
+                return View(n);*/
+
+                /*_context.Update(produkt);
+                await _context.SaveChangesAsync();*/
+
             }
-            return View(produkt);
+            return RedirectToAction(nameof(Index));
         }
 
         // GET: Produkts/Delete/5
